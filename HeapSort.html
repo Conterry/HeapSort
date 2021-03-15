@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>try</title>
+</head>
+<body>
+	<p id='demo'></p>
+</body>
+<script>
+	
+var array = prompt().split(' ');
+var heapLength = 100000;
+
+function setDoughter(i){
+	let iLeft = i*2+1;
+	let iRight = i*2+2;
+	let res = 0;
+
+	if(iLeft < array.length){
+		setDoughter(iLeft);
+		if(array[iLeft] > array[iRight] && array[iLeft]>array[i]){
+			res = array[i];
+			array[i] = array[iLeft];
+			array[iLeft] = res
+		}
+	}
+	if(iRight < array.length){
+		setDoughter(iRight);
+		if(array[iLeft] < array[iRight] && array[iRight]>array[i]){
+			res = array[i];
+			array[i] = array[iRight];
+			array[iRight] = res;
+		}
+		
+	}
+	if(array[iLeft]<array[iRight]){
+		res = array[iLeft];
+		array[iLeft] = array[iRight];
+		array[iRight] = res;
+	}
+
+}
+
+function start(){
+	for( let i = 0; i<heapLength-1; i++){
+		setDoughter(i); 
+	}
+}
+
+start();
+document.getElementById('demo').innerHTML += array.join(' ');
+
+</script>
+</html>
