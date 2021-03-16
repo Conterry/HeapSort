@@ -9,6 +9,7 @@
 <script>
 	
 var array = prompt().split(' ');
+var arrayLength = array.length;
 var heapLength = 100000;
 
 function setDoughter(i){
@@ -16,23 +17,24 @@ function setDoughter(i){
 	let iRight = i*2+2;
 	let res = 0;
 
-	if(iLeft < array.length){
+	if(iLeft < arrayLength-1){
 		setDoughter(iLeft);
-		if(array[iLeft] > array[iRight] && array[iLeft]>array[i]){
-			res = array[i];
-			array[i] = array[iLeft];
-			array[iLeft] = res
-		}
 	}
-	if(iRight < array.length){
+	if(array[iLeft] > array[iRight] && array[iLeft]>array[i]){
+		res = array[i];
+		array[i] = array[iLeft];
+		array[iLeft] = res
+	}
+	
+	if(iRight < arrayLength-1){
 		setDoughter(iRight);
-		if(array[iLeft] < array[iRight] && array[iRight]>array[i]){
-			res = array[i];
-			array[i] = array[iRight];
-			array[iRight] = res;
-		}
-		
 	}
+	if(array[iLeft] < array[iRight] && array[iRight]>array[i]){
+		res = array[i];
+		array[i] = array[iRight];
+		array[iRight] = res;
+	}
+
 	if(array[iLeft]<array[iRight]){
 		res = array[iLeft];
 		array[iLeft] = array[iRight];
@@ -42,8 +44,11 @@ function setDoughter(i){
 }
 
 function start(){
-	for( let i = 0; i<heapLength-1; i++){
+	let i=0;
+	while(arrayLength!=0){
 		setDoughter(i); 
+		arrayLength = arrayLength-1;
+		i++;
 	}
 }
 
