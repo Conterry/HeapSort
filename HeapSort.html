@@ -8,30 +8,29 @@
 </body>
 <script>
 	
-var array = prompt().split(' ');
-var arrayLength = array.length;
-var heapLength = 100000;
-
-function setDoughter(i){
-	let iLeft = i*2+1;
-	let iRight = i*2+2;
-	let res = 0;
+let array = prompt().split(' ');
+let arrayLength = array.length;
+let newArray = [];
+function setDoughter(iter){
+	var iLeft = iter*2+1;
+	var iRight = iter*2+2;
+	var res = 0;
 
 	if(iLeft < arrayLength-1){
 		setDoughter(iLeft);
 	}
-	if(array[iLeft] > array[iRight] && array[iLeft]>array[i]){
-		res = array[i];
-		array[i] = array[iLeft];
+	if(array[iLeft] > array[iRight] && array[iLeft]>array[iter]){
+		res = array[iter];
+		array[iter] = array[iLeft];
 		array[iLeft] = res
 	}
 	
 	if(iRight < arrayLength-1){
 		setDoughter(iRight);
 	}
-	if(array[iLeft] < array[iRight] && array[iRight]>array[i]){
-		res = array[i];
-		array[i] = array[iRight];
+	if(array[iLeft] < array[iRight] && array[iRight]>array[iter]){
+		res = array[iter];
+		array[iter] = array[iRight];
 		array[iRight] = res;
 	}
 
@@ -40,20 +39,19 @@ function setDoughter(i){
 		array[iLeft] = array[iRight];
 		array[iRight] = res;
 	}
-
 }
 
 function start(){
-	let i=0;
-	while(arrayLength!=0){
-		setDoughter(i); 
-		arrayLength = arrayLength-1;
-		i++;
+	var i=0;
+	while(array[0]!=null){
+		setDoughter(0);
+		newArray.push(array[0]);
+		array.splice(0, 1);
 	}
 }
 
 start();
-document.getElementById('demo').innerHTML += array.join(' ');
+document.getElementById('demo').innerHTML += newArray.join(' ');
 
 </script>
 </html>
